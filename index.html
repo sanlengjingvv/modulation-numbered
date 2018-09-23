@@ -7,10 +7,9 @@
 </head>
 <script type="text/javascript">
     let trans = () => {
-        let xiao = document.getElementById("xiao").value
-        let origin = document.getElementById("origin-solfeggio").value.trim().split(' ')
-        let keynote = document.getElementById("keynote").value
-
+        let xiao = document.querySelector("#xiao").value
+        let origin = document.querySelector("#origin-solfeggio").value.trim().split(' ')
+        let keynote = document.querySelector("#keynote").value
 
         let transformed = []
         origin.forEach(element => {
@@ -21,7 +20,8 @@
             result = result + element
             result = result + ' '
         })
-        document.getElementById("transformed-solfeggio").value = (result !== undefined) ? result : ''
+        document.querySelector("#transformed-solfeggio").innerText = (result !== undefined) ? result : ''
+
     }
     document.onreadystatechange = () => {
         if (document.readyState === "complete") {
@@ -30,32 +30,47 @@
     }
 </script>
 
+<style>
+    .center {
+    margin: auto;
+    width: 50%;
+    border: 3px solid;
+    padding: 10px;
+    }
+
+    body {font-size: 30px;}
+</style>
+
 <body>
-    <div id="sheet" onchange="trans()">
-        <span>调号: 1 = </span>
-        <select id="keynote">
-            <option value="C">C</option>
-            <option value="D">D</option>
-            <option value="E">E</option>
-            <option value="F">F</option>
-            <option value="G">G</option>
-            <option value="A">A</option>
-            <option value="bB">bB</option>
-        </select>
+    <div class="center">
+        <div id="sheet" onchange="trans()">
+            <span>调号: 1 = </span>
+            <select id="keynote">
+                <option value="C">C</option>
+                <option value="D">D</option>
+                <option value="E">E</option>
+                <option value="F">F</option>
+                <option value="G">G</option>
+                <option value="A">A</option>
+                <option value="bB">bB</option>
+            </select>
+        </div>
+
+        <div>
+            <span>箫:</span>
+            <select id="xiao" onchange="trans()">
+                <option value="G">G</option>
+                <option value="F">F</option>
+                <option value="E">E</option>
+            </select>
+            <span>调</span>
+        </div>
+        <br>
+        <input type="text" id="origin-solfeggio" value="2. 3. 4. #4. 5. 6. 7. 1 b7" oninput="trans()">
+        <p>转为</p>
+        <label id="transformed-solfeggio">wait for transfer</label>
     </div>
 
-    <div>
-        <select id="xiao" onchange="trans()">
-            <option value="G">G</option>
-            <option value="F">F</option>
-            <option value="E">E</option>
-        </select>
-        <span>调箫</span>
-    </div>
-    <br>
-    <input type="text" id="origin-solfeggio" value="2. 3. 4. #4. 5. 6. 7. 1 b7" oninput="trans()">
-    <p>转换为</p>
-    <input type="text" id="transformed-solfeggio">
 </body>
 
 </html>
